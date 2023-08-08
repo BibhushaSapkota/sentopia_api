@@ -9,7 +9,7 @@ const addtocart= async function(req,res,next) {
       {
           cart = new Cart({
             product: product,
-            user: req.user.user,
+            user: req.user.userId,
             quantity: quantity,
             amount:amount
           })
@@ -31,7 +31,7 @@ const addtocart= async function(req,res,next) {
 const clearcart= async function(req,res,next){
   try {
     const productId = req.params.id;
-    const userId = req.user.user._id;
+    const userId = req.user.userId;
     console.log(productId, userId);
     const response = await Cart.deleteOne().where("product").equals(productId).where("user").equals(userId);
     if (response.deletedCount > 0) {
@@ -73,23 +73,21 @@ const updatecart = async function (req, res) {
 
 
 const deleteAllCartFromUser = (req, res, next)=>{
- Cart.find()
- .where("user").equals(req.params.id)
-  .then((cart)=>{
-    cart.forEach((cart)=>{
-      cart.remove()
-    })
+ Cart.deleteMany({user:req.user.userId})
+  .then(()=>{
     res.status(200).json({
-      success: true,
-      message: "Cart Deleted Succesfully!",     
+      success:true,
+      message:"All items deleted from cart",
     })
+
   })
 }
 
 const getCartByUser =(req,res,next)=> {
+  console.log(req.user.userId)
+  console.log('I am here')
   try{
-    Cart.find()
-    .where("user").equals(req.params.id)
+    Cart.find({user:req.user.userId})
     .populate({path:'user',populate:{path:'address'}})
     .populate({path: 'product', populate: {path: 'category'}})
    .then((cart)=> {
@@ -112,7 +110,6 @@ const getCartByUser =(req,res,next)=> {
 
 
 const getcart = (req, res, next) => {
-
     Cart.findById(req.params.id)
     .populate('user')
     .populate({path: 'product', populate: {path: 'category'}})

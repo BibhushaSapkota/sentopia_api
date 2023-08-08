@@ -50,7 +50,7 @@ const loginuser = (req, res, next) => {
                     return next(err)
                 }
                 let data = {
-                    userId: user._id,
+                    userId: user._id, 
                     role: user.role
                     
                 }
