@@ -7,7 +7,7 @@ const path=require('path')
 
 const createlogitem=(msg)=>{
     const dateTime=`${format(new Date(),'yyyyMMdd\tHH:mm:ss')}`
-    return `${uuid()}\t${dateTime}\t ${msg}\t\n` 
+    return `${uuid()}\t${dateTime}\t ${msg}\n` 
 }
 const savelogitem = (logItem) => {
 
@@ -21,7 +21,7 @@ const savelogitem = (logItem) => {
         }
         )
     }
-    fs.appendFile(path.join(__dirname,'logs','eventlog.txt'), logItem, (err) => {
+    fs.appendFile(path.join(__dirname,'logs','errorlog.txt'), logItem, (err) => {
         if (err) {
             console.log(err)
         }

@@ -1,0 +1,15 @@
+9efa2d4d-1511-40d4-b193-be5c11a151d4	20230812	16:16:07	 GET /products	 
+f64c5d88-6fde-40c3-a69c-96f4b769ff4e	20230812	16:16:07	 GET /images/product_image/image-1685975060667.jpg	 
+7ab18926-2c45-4faa-aacd-1d0c7fd7a8b2	20230812	16:16:07	 GET /products	 
+94c65fa7-3c79-4802-af35-8235cc7eb727	20230812	16:16:28	 POST /users/login	 
+bf5ccd65-444d-4d01-a689-dffa1e4cb737	20230812	16:16:34	 POST /users/login	 
+8f6e1afa-8f24-4b29-91d7-b3e309f7e911	20230812	16:19:02	 POST /users/login	 
+d51a8b40-a72c-4af1-b68b-43b26b7f10ed	20230812	16:19:24	 POST /users/login	 
+dabc6156-d26a-4dbb-89ac-1a3a9ec76d64	20230812	16:19:43	 POST /users/login	 
+023857bd-ecd4-4685-97ad-2bb40fd7e23e	20230812	16:33:12	 POST /users/login	 
+ded4eeec-e724-4212-b8c6-28edc50650e4	20230812	16:33:20	 POST /users/login	 
+82e72698-e88e-4fbe-9a80-8a0042d6fbae	20230812	16:39:28	 POST /users/login	 
+a340603c-bc0f-4925-927e-6498d3d5a89d	20230812	16:39:31	 POST /users/login	 
+201cfaea-bbd7-4226-ab4c-db0156e3d9a1	20230812	16:39:44	 POST /users/login	 
+668f51c7-b01d-4e45-8204-7b88e76337ac	20230812	16:39:45	 POST /users/login	 
+ec661a05-204f-412a-a478-3a4b44b6c4a7	20230812	16:43:23	 POST /users/login	 

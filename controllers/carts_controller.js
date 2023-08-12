@@ -1,6 +1,6 @@
 const User = require('../models/User')
 const Cart = require('../models/Cart');
-
+const logger = require('../logger')
 const addtocart= async function(req,res,next) {
     try {
       const {product, quantity, amount} = req.body;
@@ -19,7 +19,9 @@ const addtocart= async function(req,res,next) {
               message: "Item added cart!",
               data: cart,
             });
+            logger.log(`Item added to cart by ${req.user.userId}`)
           })
+
       });
       
     } catch (error) {
@@ -39,6 +41,7 @@ const clearcart= async function(req,res,next){
         success: true,
         message: "Item Deleted Successfully!",
       });
+      logger.log(`Item deleted from cart by ${req.user.userId}`)
     } else {
       res.status(404).json({
         success: false,
@@ -78,7 +81,7 @@ const deleteAllCartFromUser = (req, res, next)=>{
     res.status(200).json({
       success:true,
       message:"All items deleted from cart",
-    })
+    })  
 
   })
 }

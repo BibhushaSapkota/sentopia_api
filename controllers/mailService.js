@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+logger=require('../logger')
 
 // Create a transporter for sending emails
 const transporter = nodemailer.createTransport({
@@ -25,6 +26,8 @@ const sendVerificationCode = async (email, code) => {
     // Send the email
     const info = await transporter.sendMail(mailOptions);
     console.log('Email sent:', info.response);
+    logger.log('Email sent:', info.response);
+
   } catch (error) {
     console.error('Error sending email:', error);
   }

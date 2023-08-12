@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const mailService = require('./mailService');
+const logger=require('../logger')
 
 
 const registeruser = ((req, res, next) => {
@@ -61,17 +62,88 @@ const loginuser = (req, res, next) => {
                             success:true,
                             status: 'Login success',
                             token: token,
-                            user:user
+                            user:user,
+                            role:user.role
                         })
+                        logger.log(`user with ${userId} id Logged in successfully`)
                     })
             })
 
         }).catch(next)
 }
 
+const getAllUsers = (req, res, next) => {
+    User.find()
+        .populate('address')
+        .then((users) => {
+            res.status(200).json({
+                success: true,
+                message: "List of users",
+                data: users
+            });
+        }).catch((err) => next(err))
+  
+}
+const deleteallusers = (req, res) => {
+    User.deleteMany()
+        .then((reply) => {
+            res.json(reply)
+        }).catch(console.log)
+}
+
+const getUserByID = (req, res, next) => {
+    User.findById(_id = req.user.userId)
+        .populate('address')
+        .then((user) => {
+           res.status(200).json({
+           success:true,
+           message:'User details',
+           data:user,
+           }
+              )}
+        ).catch(next)
+    
+}
+
+const updateUserByID = (req, res, next) => {
+    if (req.body.password) {
+        req.body.password = bcrypt.hash(req.body.password, 10, (err, hash) => {
+            if (err) return next(err)
+            req.body.password = hash
+            User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+                .then((user) => {
+                    res.status(200).json({
+                        success:true,
+                        message:'User updated successfully',
+                        data:user,
+                    })
+                }).catch(next)
+
+        }
+        )
+    }
+}
+
+
+const deleteUserByID = (req, res, next) => {
+    User.findByIdAndDelete(req.params.id)
+        .then((reply) => {
+            res.json(reply)
+        }).catch(next)
+    // deletedbooks = books.filter(item => item.id != req.params.id);
+    // res.json(deletedbooks)
+}
+
+
+
 
 
 module.exports = {
+    getAllUsers,
     registeruser,
-    loginuser
+    loginuser,
+    getUserByID,
+    updateUserByID,
+    deleteUserByID,
+    deleteallusers,
 }

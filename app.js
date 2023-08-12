@@ -1,8 +1,8 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const logger =require('./logger')
-
+const reqlogger =require('./reqlogger')
+const errorlogger =require('./errorlogger')
 const mongoose = require('mongoose')//
 const path = require('path')
 const user_routes = require('./routes/user_routes')
@@ -26,7 +26,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/scentopia')
 
 // application level middleware
 app.use((req, res, next) => {
-    logger.log(`${req.method} ${req.path} ${req.ip}`, req.ip)
+    reqlogger.log(`${req.method} ${req.path}`)
     console.log(`${req.method} ${req.path} ${req.ip}`)  
     next()
 })
@@ -58,7 +58,7 @@ app.use('/address',address_routes)
 
 app.use((err, req, res, next) => { 
     console.log(err.stack)  
-    logger.log(err.stack,req.ip)
+    errorlogger.log(err.stack)
     if (res.statusCode == 200) res.status(500)
     res.json({ "err": err.message })
     

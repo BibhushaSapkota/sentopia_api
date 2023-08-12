@@ -1,5 +1,6 @@
 const Product = require('../models/Product')
 const category = require('../models/Category')
+const logger = require('../logger')
 
 const getallproducts = (req, res, next) => {
     Product.find()
@@ -30,6 +31,8 @@ const createproducts = (req, res, next) => {
             message: 'Product added successfully',
             data: product
         })
+        logger.log(`Product ${req.body.name} added successfully by ${req.user.email}`)
+
     }).catch(next)
 
 
